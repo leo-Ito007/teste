@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema do Laboratório de Informática</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- TELA DE LOGIN INICIAL -->
+  <div id="telaLogin" class="login-overlay">
+    <div class="login-card">
+      <h2>🔑 Acesso ao Painel</h2>
+      <p>Identifique-se com seu e-mail institucional para acessar a agenda do laboratório.</p>
+      
+      <div class="form-group">
+        <label for="loginEmail">Seu E-mail:</label>
+        <input type="email" id="loginEmail" placeholder="seu-email@escola.pr.gov.br" required>
+      </div>
+      
+      <!-- ID Correto mapeado para o Script -->
+      <button id="btnAcessar" class="btn-acao" style="width: 100%; margin-top: 10px;">Acessar Sistema</button>
+    </div>
+  </div>
+
+  <!-- CONTEÚDO PRINCIPAL DO SITE (SÓ APARECE APÓS LOGIN) -->
+  <div id="conteudoSite" class="site-content">
+    <div class="container">
+      <h1>🖥️ Lab de Informática Integrado (PR)</h1>
+      
+      <div class="user-bar">
+        <div>Usuário ativo: <span id="userStatus">--</span></div>
+        <div><button id="btnSair" class="btn-perigo"> canais 🔒 Sair do Painel</button></div>
+      </div>
+
+      <div class="Abas-container">
+        <button id="abaProf" class="btn-aba ativa">👨‍🏫 Visão do Professor</button>
+        <button id="abaOperador" class="btn-aba" style="display: none;">⚙️ Painel do Operador</button>
+      </div>
+
+      <!-- VISÃO DO PROFESSOR -->
+      <div id="visaoProfessor" class="secao-visao ativa">
+        <h3>Grade Horária de Hoje</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Horário</th>
+              <th>Professor da Grade</th>
+              <th>Matéria / Turma</th>
+              <th>Situação atual</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody id="tabelaProfessor"></tbody>
+        </table>
+
+        <div id="formProfessor" class="form-box">
+          <h3>📝 Ocupar Horário Livre / Vago</h3>
+          <p>Horário selecionado: <strong id="profHoraTexto">--:--</strong></p>
+          <div class="form-group">
+            <label for="profInputNome">Seu Nome:</label>
+            <input type="text" id="profInputNome" placeholder="Ex: Prof. Cláudio">
+          </div>
+          <div class="form-group">
+            <label for="profInputTurma">Sua Turma:</label>
+            <input type="text" id="profInputTurma" placeholder="Ex: 1º Ano B">
+          </div>
+          <button id="btnConfirmarProf" class="btn-acao" style="width: 100%; padding: 10px;">Confirmar Ocupação</button>
+        </div>
+      </div>
+
+      <!-- VISÃO DO OPERADOR -->
+      <div id="visaoOperador" class="secao-visao">
+        <h3>⚙️ Gerenciador da Grade Geral</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Horário</th>
+              <th>Professor Titular</th>
+              <th>Matéria / Turma</th>
+              <th>Situação Atual</th>
+              <th>Ações do Operador</th>
+            </tr>
+          </thead>
+          <tbody id="tabelaOperador"></tbody>
+        </table>
+        
+        <div id="formOperador" class="form-box">
+          <h3>🔧 Editar Grade Fixa do Horário</h3>
+          <div class="form-group"> <label>Definir Horário:</label> <input type="text" id="opInputHora"> </div>
+          <div class="form-group"> <label>Professor Titular:</label> <input type="text" id="opInputProf"> </div>
+          <div class="form-group"> <label>Matéria / Detalhes:</label> <input type="text" id="opInputInfo"> </div>
+          <button id="btnSalvarOperador" class="btn-acao" style="width: 100%; padding: 10px;">Atualizar Grade Escolar</button>
+        </div>
+
+        <!-- CONTROLE DE PERMISSÕES -->
+        <div style="margin-top: 40px; border-top: 2px dashed #cbd5e1; padding-top: 20px;">
+          <h3>🔑 Conceder Autorização para Outros E-mails</h3>
+          <p style="font-size: 14px; color: #64748b;">E-mails adicionados aqui ganharão acesso automático a este painel administrativo.</p>
+          <div class="form-group" style="display: flex; gap: 10px;">
+            <input type="email" id="novoEmailAutorizado" placeholder="professor-parceiro@escola.pr.gov.br" style="flex: 1;">
+            <button id="btnAutorizarEmail" class="btn-acao" style="padding: 10px 20px;">Dar Permissão</button>
+          </div>
+          <h4>E-mails Autorizados:</h4>
+          <div class="lista-emails" id="listaEmailsHtml"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scripts acoplados no final do body por performance -->
+  <script src="app.js"></script>
+</body>
+</html>
