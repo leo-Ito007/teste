@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema do Laboratório de Informática</title>
+  <title>Gerenciador do Laboratório Escolar</title>
+  <!-- O arquivo CSS (Arquivo 3) deve estar na mesma pasta com o nome 'style.css' -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,106 +12,162 @@
   <!-- TELA DE LOGIN INICIAL -->
   <div id="telaLogin" class="login-overlay">
     <div class="login-card">
-      <h2>🔑 Acesso ao Painel</h2>
-      <p>Identifique-se com seu e-mail institucional para acessar a agenda do laboratório.</p>
-      
-      <div class="form-group">
-        <label for="loginEmail">Seu E-mail:</label>
-        <input type="email" id="loginEmail" placeholder="seu-email@escola.pr.gov.br" required>
+      <h2>Acesso ao Sistema</h2>
+      <p>Utilize seu e-mail institucional para acessar o cronograma do laboratório.</p>
+      <div class="form-group" style="margin-bottom: 20px;">
+        <input type="email" id="loginEmail" placeholder="exemplo@escola.pr.gov.br" required>
       </div>
-      
-      <!-- ID Correto mapeado para o Script -->
-      <button id="btnAcessar" class="btn-acao" style="width: 100%; margin-top: 10px;">Acessar Sistema</button>
+      <button id="btnAcessar" class="btn-acao" style="width: 100%; padding: 12px; font-size: 16px;">Entrar no Sistema</button>
     </div>
   </div>
 
-  <!-- CONTEÚDO PRINCIPAL DO SITE (SÓ APARECE APÓS LOGIN) -->
+  <!-- CONTEÚDO PRINCIPAL DO SITE -->
   <div id="conteudoSite" class="site-content">
     <div class="container">
-      <h1>🖥️ Lab de Informática Integrado (PR)</h1>
       
+      <!-- BARRA DE STATUS DO USUÁRIO -->
       <div class="user-bar">
-        <div>Usuário ativo: <span id="userStatus">--</span></div>
-        <div><button id="btnSair" class="btn-perigo"> canais 🔒 Sair do Painel</button></div>
+        <div>
+          <span>Conectado como: <strong><span id="userStatus">--</span></strong></span>
+        </div>
+        <button id="btnSair" class="btn-perigo" style="padding: 6px 15px;">Sair / Logout</button>
       </div>
 
+      <!-- CONTROLLER DE ABAS (NAVEGAÇÃO) -->
       <div class="Abas-container">
-        <button id="abaProf" class="btn-aba ativa">👨‍🏫 Visão do Professor</button>
+        <button id="abaProf" class="btn-aba ativa">Visão do Professor</button>
+        <!-- Esta aba será exibida ou ocultada pelo JavaScript dependendo do nível de acesso -->
         <button id="abaOperador" class="btn-aba" style="display: none;">⚙️ Painel do Operador</button>
       </div>
 
-      <!-- VISÃO DO PROFESSOR -->
+      <!-- ======================================================= -->
+      <!-- 1. SEÇÃO DA VISÃO DO PROFESSOR                          -->
+      <!-- ======================================================= -->
       <div id="visaoProfessor" class="secao-visao ativa">
         <h3>Grade Horária de Hoje</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Horário</th>
-              <th>Professor da Grade</th>
-              <th>Matéria / Turma</th>
-              <th>Situação atual</th>
-              <th>Ação</th>
-            </tr>
-          </thead>
-          <tbody id="tabelaProfessor"></tbody>
-        </table>
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Horário / Período</th>
+                <th>Professor</th>
+                <th>Matéria / Turma</th>
+                <th>Situação</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaProfessor">
+              <!-- Preenchido dinamicamente pelo JavaScript -->
+            </tbody>
+          </table>
+        </div>
 
+        <!-- FORMULÁRIO PARA OCUPAR HORÁRIO (PROFESSOR) -->
         <div id="formProfessor" class="form-box">
           <h3>📝 Ocupar Horário Livre / Vago</h3>
           <p>Horário selecionado: <strong id="profHoraTexto">--:--</strong></p>
+          
           <div class="form-group">
             <label for="profInputNome">Seu Nome:</label>
-            <input type="text" id="profInputNome" placeholder="Ex: Prof. Cláudio">
+            <input type="text" id="profInputNome" placeholder="Ex: Profª Marta">
           </div>
+
+          <div class="form-group">
+            <label for="profInputMateria">Selecione a Matéria:</label>
+            <select id="profInputMateria" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; background: white; height: 42px; font-size: 14px;">
+              <option value="">-- Escolha uma Matéria --</option>
+              <option value="Biologia">Biologia</option>
+              <option value="História">História</option>
+              <option value="Matemática">Matemática</option>
+              <option value="Português">Português</option>
+              <option value="Química">Química</option>
+              <option value="Física">Física</option>
+              <option value="Filosofia">Filosofia</option>
+              <option value="Geografia">Geografia</option>
+              <option value="Sociologia">Sociologia</option>
+              <option value="Artes">Artes</option>
+              <option value="Educação Física">Educação Física</option>
+              <option value="Língua Estrangeira">Língua Estrangeira</option>
+            </select>
+          </div>
+
           <div class="form-group">
             <label for="profInputTurma">Sua Turma:</label>
-            <input type="text" id="profInputTurma" placeholder="Ex: 1º Ano B">
+            <input type="text" id="profInputTurma" placeholder="Ex: 1º A">
           </div>
-          <button id="btnConfirmarProf" class="btn-acao" style="width: 100%; padding: 10px;">Confirmar Ocupação</button>
+
+          <button id="btnConfirmarProf" class="btn-acao" style="margin-top: 10px;">Confirmar Ocupação</button>
         </div>
       </div>
 
-      <!-- VISÃO DO OPERADOR -->
-      <div id="visaoOperador" class="secao-visao">
+      <!-- ======================================================= -->
+      <!-- 2. SEÇÃO DA VISÃO DO OPERADOR (ADMINISTRADOR)          -->
+      <!-- ======================================================= -->
+      <div id="visaoOperador" class="secao-visao" style="display: none;">
         <h3>⚙️ Gerenciador da Grade Geral</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Horário</th>
-              <th>Professor Titular</th>
-              <th>Matéria / Turma</th>
-              <th>Situação Atual</th>
-              <th>Ações do Operador</th>
-            </tr>
-          </thead>
-          <tbody id="tabelaOperador"></tbody>
-        </table>
-        
-        <div id="formOperador" class="form-box">
-          <h3>🔧 Editar Grade Fixa do Horário</h3>
-          <div class="form-group"> <label>Definir Horário:</label> <input type="text" id="opInputHora"> </div>
-          <div class="form-group"> <label>Professor Titular:</label> <input type="text" id="opInputProf"> </div>
-          <div class="form-group"> <label>Matéria / Detalhes:</label> <input type="text" id="opInputInfo"> </div>
-          <button id="btnSalvarOperador" class="btn-acao" style="width: 100%; padding: 10px;">Atualizar Grade Escolar</button>
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Horário / Período</th>
+                <th>Professor Titular</th>
+                <th>Matéria / Turma</th>
+                <th>Situação Atual</th>
+                <th>Ações do Operador</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaOperador">
+              <!-- Preenchido dinamicamente pelo JavaScript -->
+            </tbody>
+          </table>
         </div>
 
-        <!-- CONTROLE DE PERMISSÕES -->
-        <div style="margin-top: 40px; border-top: 2px dashed #cbd5e1; padding-top: 20px;">
-          <h3>🔑 Conceder Autorização para Outros E-mails</h3>
-          <p style="font-size: 14px; color: #64748b;">E-mails adicionados aqui ganharão acesso automático a este painel administrativo.</p>
-          <div class="form-group" style="display: flex; gap: 10px;">
-            <input type="email" id="novoEmailAutorizado" placeholder="professor-parceiro@escola.pr.gov.br" style="flex: 1;">
-            <button id="btnAutorizarEmail" class="btn-acao" style="padding: 10px 20px;">Dar Permissão</button>
+        <!-- FORMULÁRIO DE EDIÇÃO DIRETA (OPERADOR) -->
+        <div id="formOperador" class="form-box">
+          <h3>✏️ Editar Registro da Grade</h3>
+          
+          <div class="form-group">
+            <label for="opInputHora">Horário:</label>
+            <input type="text" id="opInputHora">
           </div>
-          <h4>E-mails Autorizados:</h4>
-          <div class="lista-emails" id="listaEmailsHtml"></div>
+
+          <div class="form-group">
+            <label for="opInputProf">Professor:</label>
+            <input type="text" id="opInputProf">
+          </div>
+
+          <div class="form-group">
+            <label for="opInputInfo">Informações Extras:</label>
+            <input type="text" id="opInputInfo">
+          </div>
+
+          <button id="btnSalvarOperador" class="btn-acao" style="margin-top: 10px;">Salvar Alterações</button>
+        </div>
+
+        <!-- SEÇÃO DE AUTORIZAÇÃO DE NOVOS USUÁRIOS -->
+        <div class="form-box" style="display: block; margin-top: 30px;">
+          <h3>🔑 Conceder Autorização para Outros E-mails</h3>
+          <p style="color: #64748b; font-size: 14px;">Adicione novos e-mails à lista de permissões e escolha o nível de acesso.</p>
+          
+          <div class="form-group">
+            <label for="novoEmailAutorizado">E-mail Institucional:</label>
+            <input type="email" id="novoEmailAutorizado" placeholder="exemplo@escola.pr.gov.br">
+          </div>
+          
+          <button id="btnAutorizarEmail" class="btn-acao" style="margin-top: 10px;">Cadastrar Novo Acesso</button>
+          
+          <h4 style="margin-top: 25px; margin-bottom: 10px;">E-mails com Acesso Autorizado:</h4>
+          <div id="listaEmailsHtml" class="lista-emails">
+            <!-- Gerado de forma dinâmica via JavaScript a partir do localStorage -->
+          </div>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- Scripts acoplados no final do body por performance -->
-  <script src="app.js"></script>
+
+  <!-- Altere a tag no final do seu HTML para incluir o ponto e a barra (./) -->
+  <script src="./script.js"></script>
 </body>
 </html>

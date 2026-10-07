@@ -1,3 +1,6 @@
+/* ==========================================================================
+   CONFIGURAÇÕES GERAIS E RESETS
+   ========================================================================== */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f1f5f9;
@@ -5,6 +8,14 @@ body {
   padding: 0;
   color: #1e293b;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   TELA DE LOGIN
+   ========================================================================== */
 .login-overlay {
   position: fixed;
   top: 0;
@@ -17,6 +28,7 @@ body {
   align-items: center;
   z-index: 9999;
 }
+
 .login-card {
   background: white;
   padding: 40px;
@@ -26,38 +38,60 @@ body {
   max-width: 400px;
   text-align: center;
 }
-.login-card h2 { margin-top: 0; color: #1e3a8a; }
-.login-card p { color: #64748b; font-size: 14px; margin-bottom: 25px; }
 
-.site-content { display: none; padding: 20px; }
+.login-card h2 {
+  margin-top: 0;
+  color: #1e3a8a;
+}
+
+.login-card p {
+  color: #64748b;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+/* ==========================================================================
+   CONTEÚDO PRINCIPAL E CONTAINERS
+   ========================================================================== */
+.site-content {
+  display: none; /* Controlado dinamicamente via JS após o Login */
+  padding: 20px;
+}
+
 .container {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
   background: white;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
+
 .user-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: #f8fafc;
-  padding: 10px 15px;
+  padding: 12px 20px;
   border-radius: 8px;
   margin-bottom: 20px;
   border: 1px solid #e2e8f0;
 }
+
+/* ==========================================================================
+   SISTEMA DE ABAS (NAVEGAÇÃO)
+   ========================================================================== */
 .Abas-container {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 30px;
   border-bottom: 2px solid #e2e8f0;
   padding-bottom: 15px;
 }
+
 .btn-aba {
-  padding: 10px 20px;
+  padding: 12px 24px;
   font-size: 16px;
   font-weight: 600;
   border: none;
@@ -65,28 +99,195 @@ body {
   color: #475569;
   border-radius: 8px;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
-.btn-aba.ativa { background: #2563eb; color: white; }
 
-.secao-visao { display: none; }
-.secao-visao.ativa { display: block; }
+.btn-aba:hover {
+  background: #cbd5e1;
+}
 
-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-th, td { border: 1px solid #cbd5e1; padding: 12px; text-align: center; }
-th { background-color: #f8fafc; color: #475569; }
+.btn-aba.ativa {
+  background: #2563eb;
+  color: white;
+}
 
-.status-ocupado { background-color: #fee2e2; color: #991b1b; padding: 4px 8px; border-radius: 6px; font-weight: 500; }
-.status-vaga { background-color: #fef08a; color: #854d0e; padding: 4px 8px; border-radius: 6px; font-weight: bold; animation: piscar 2s infinite; }
-.status-disponivel { background-color: #dcfce7; color: #166534; padding: 4px 8px; border-radius: 6px; }
-@keyframes piscar { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+/* ==========================================================================
+   CONTROLE DE EXIBIÇÃO DAS SEÇÕES (VISÕES)
+   ========================================================================== */
+.secao-visao {
+  display: none; /* Escondido por padrão */
+}
 
-.btn-acao { background-color: #2563eb; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: 500; }
-.btn-perigo { background-color: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.secao-visao.ativa {
+  display: block !important; /* Força a exibição quando a classe .ativa for inserida */
+}
 
-.form-box { background: #f8fafc; border: 1px solid #cbd5e1; padding: 20px; border-radius: 8px; margin-top: 25px; display: none; }
-.form-group { margin-bottom: 12px; text-align: left; }
-.form-group label { display: block; margin-bottom: 6px; font-weight: 500; }
-.form-group input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; }
+/* ==========================================================================
+   TABELAS DE CRONOGRAMA
+   ========================================================================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
 
-.lista-emails { background: #f1f5f9; padding: 10px; border-radius: 6px; margin-top: 10px; max-height: 150px; overflow-y: auto; }
-.email-item { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #cbd5e1; }
+th, td {
+  border: 1px solid #cbd5e1;
+  padding: 14px;
+  text-align: center;
+  font-size: 15px;
+}
+
+th {
+  background-color: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+}
+
+tr:hover {
+  background-color: #f8fafc;
+}
+
+/* ==========================================================================
+   BADGES DE STATUS SINALIZADORES
+   ========================================================================== */
+.status-ocupado {
+  background-color: #fee2e2;
+  color: #991b1b;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.status-vaga {
+  background-color: #fef08a;
+  color: #854d0e;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  display: inline-block;
+  animation: piscar 2s infinite;
+}
+
+.status-disponivel {
+  background-color: #dcfce7;
+  color: #166534;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+@keyframes piscar {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* ==========================================================================
+   BOTÕES E AÇÕES
+   ========================================================================== */
+.btn-acao {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.btn-acao:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-perigo {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.btn-perigo:hover {
+  background-color: #b91c1c;
+}
+
+/* ==========================================================================
+   FORMULÁRIOS E CAMPOS DE ENTRADA (Múltiplas matérias inclusas)
+   ========================================================================== */
+.form-box {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  padding: 25px;
+  border-radius: 8px;
+  margin-top: 30px;
+  border-left: 4px solid #2563eb;
+}
+
+.form-group {
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #334155;
+}
+
+.form-group input, 
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: #1e293b;
+  background-color: white;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus, 
+.form-group select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* ==========================================================================
+   GERENCIADOR DE PERMISSÕES (LISTA DE EMAILS)
+   ========================================================================== */
+.lista-emails {
+  background: #f1f5f9;
+  padding: 15px;
+  border-radius: 6px;
+  margin-top: 15px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #cbd5e1;
+}
+
+.email-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.email-item:last-child {
+  border-bottom: none;
+}
+
+.email-item span {
+  font-size: 14px;
+  color: #334155;
+}
